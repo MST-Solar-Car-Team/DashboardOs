@@ -20,5 +20,5 @@ jobs:
     - run: sudo apt install qemu-user-static binfmt-support
     - run: sudo update-binfmts --enable qemu-aarch64
     - run: sudo apt install gcc-aarch64-linux-gnu
-    - run: nix build .#rpiImage 
+    - run: nix-shell shell.nix --command "nix build .#rpiImage" 
     - run: nix-shell --run "echo OK"
