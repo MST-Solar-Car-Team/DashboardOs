@@ -17,5 +17,8 @@ jobs:
         # signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         # If you chose API tokens for write access OR if you have a private cache
         # authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - run: sudo apt install qemu-user-static binfmt-support
+    - run: sudo update-binfmts --enable qemu-aarch64
+    - run: sudo apt install gcc-aarch64-linux-gnu
     - run: nix build .#rpiImage 
     - run: nix-shell --run "echo OK"
