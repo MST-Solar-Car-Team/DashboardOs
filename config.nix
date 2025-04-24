@@ -6,6 +6,20 @@
     #networking
     networking.hostName = "pi";
     networking.useDHCP = true;
+    networking.wireless.enable = true;
+
+    networking.wireless.networks = {
+      solar-car = {
+        auth= ''
+          ssid="solar-car"
+          psk="password"
+          proto=RSN
+          key_mgmt=WPA-PSK
+          pairwise=CCMP
+          auth_alg=OPEN
+        '';
+      };
+    };
 
     #ssh
     services.openssh.enable = true;
