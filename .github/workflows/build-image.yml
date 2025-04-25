@@ -20,4 +20,8 @@ jobs:
         # If you chose API tokens for write access OR if you have a private cache
         # authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix build .#rpiImage
-    - run: nix-shell --run "echo OK"
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: github.ref_type == 'tag'
+      with:
+        files: img/*
