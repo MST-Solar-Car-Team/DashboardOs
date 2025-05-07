@@ -1,4 +1,4 @@
-  { config, pkgs, ... }: {
+  { config, pkgs, dashboard, ... }: {
     system.stateVersion = "24.05";
 
     users.users.root.initialPassword = "raspberry";
@@ -38,20 +38,23 @@
 
     services.cage = {
       enable = true;
-      program = "${pkgs.firefox}/bin/firefox";
+      # program = "${pkgs.firefox}/bin/firefox";
+      program = "${dashboard}/bin/dashboard";
       user = "pi";
     };
 
     # wait for network and DNS
     systemd.services."cage-tty1".after = [
-      "network-online.target"
+      # "network-online.target"
       "systemd-resolved.service"
     ];
 
 
-    environment.systemPackages = with pkgs; [
-      chromium
-      xorg.xset
+    environment.systemPackages = [
+      # chromium
+      pkgs.xorg.xset
+      dashboard
+      pkgs.xterm
     ];
 
     boot.loader.grub.enable = false;
@@ -61,6 +64,9 @@
     boot.kernelParams = [
       "console=ttyS1,115200n8"
     ];
+
+
+    # boot.loader.timeout = 0;
 
     boot.initrd.kernelModules = [ "vc4" "bcm2835_dma" "i2c_bcm2835" ];
 
