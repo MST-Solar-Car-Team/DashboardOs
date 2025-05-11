@@ -38,6 +38,12 @@ jobs:
         nix build .#rpiImage
         echo "Build completed successfully!"
 
+    - name: Upload build output
+      uses: actions/upload-artifact@v4
+      with:
+        name: rpi-image
+        path: result/sd-image/*
+
     - name: Release Image
       uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/') # Only run on tags
