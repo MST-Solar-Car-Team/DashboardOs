@@ -3,12 +3,14 @@ on:
   pull_request:
     branches:
       - main
+      - git-actions
   push:
     branches:
       - main
+      - git-actions
 
 jobs:
-  tests:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -20,8 +22,8 @@ jobs:
     - name: Install Nix
       uses: cachix/install-nix-action@v25
       with:
-          extra_nix_config: "extra-platforms = aarch64-linux"
-          nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: "extra-platforms = aarch64-linux"
+        nix_path: nixpkgs=channel:nixos-unstable
 
     # Uncomment and configure Cachix for caching if needed
     # - name: Setup Cachix for caching
