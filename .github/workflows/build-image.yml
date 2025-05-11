@@ -1,13 +1,8 @@
 name: "Build Image"
 on:
-  pull_request:
-    branches:
-      - main
-      - git-actions
   push:
-    branches:
-      - main
-      - git-actions
+    tags:
+      - '*' # Only run on tag creation
 
 jobs:
   build:
