@@ -4,6 +4,9 @@ on:
     tags:
       - '*' # Only run on tag creation
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04-arm
