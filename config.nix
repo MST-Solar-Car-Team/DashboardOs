@@ -33,27 +33,27 @@
     };
 
      # Auto loging
-    services.displayManager.autoLogin.user = "pi";
-    services.displayManager.autoLogin.enable = true;
+    # services.displayManager.autoLogin.user = "pi";
+    # services.displayManager.autoLogin.enable = true;
 
-    services.cage = {
-      enable = true;
-      # program = "${pkgs.firefox}/bin/firefox";
-      program = "${dashboard}/bin/dashboard";
-      user = "pi";
-    };
+    # services.cage = {
+    #   enable = true;
+    #   # program = "${pkgs.firefox}/bin/firefox";
+    #   program = "${dashboard}/bin/dashboard";
+    #   user = "pi";
+    # };
 
-    # wait for network and DNS
-    systemd.services."cage-tty1".after = [
-      # "network-online.target"
-      "systemd-resolved.service"
-    ];
+    # # wait for network and DNS
+    # systemd.services."cage-tty1".after = [
+    #   # "network-online.target"
+    #   "systemd-resolved.service"
+    # ];
 
 
     environment.systemPackages = [
       # chromium
       pkgs.xorg.xset
-      dashboard
+      dashboard.packages.x86_64-linux.default
       pkgs.xterm
     ];
 
