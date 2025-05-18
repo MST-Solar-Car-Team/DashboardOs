@@ -36,6 +36,9 @@
     services.displayManager.autoLogin.user = "pi";
     services.displayManager.autoLogin.enable = true;
 
+    # services.xserver.enable = true;
+  
+
 
     services.cage = {
       enable = true;
@@ -57,7 +60,13 @@
       dashboard.packages.x86_64-linux.default
       pkgs.xterm
       pkgs.cage
+      pkgs.libxkbcommon
     ];
+
+    environment.sessionVariables = {
+      LD_LIBRARY_PATH = "${pkgs.xorg.libX11}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXi}/lib:${pkgs.libxkbcommon}/lib";
+      WINIT_UNIX_BACKEND = "X11";
+    };
 
     boot.loader.grub.enable = false;
     boot.loader.generic-extlinux-compatible.enable = true;
