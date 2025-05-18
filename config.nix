@@ -1,4 +1,4 @@
-  { config, pkgs, dashboard, ... }: {
+  { config, pkgs, lib, dashboard, ... }: {
     system.stateVersion = "24.05";
 
     users.users.root.initialPassword = "pi";
@@ -7,12 +7,13 @@
     networking.hostName = "pi";
     # networking.useDHCP = true;
     networking.wireless.enable = true;
+    networking.networkmanager.enable = false;
 
     networking.wireless.networks = {
       solar-car = {
         auth= ''
-          ssid="solar-car"
           psk="password"
+          ssid="solar-car"
           proto=RSN
           key_mgmt=WPA-PSK
           pairwise=CCMP
@@ -33,23 +34,25 @@
     };
 
      # Auto loging
-    services.displayManager.autoLogin.user = "pi";
-    services.displayManager.autoLogin.enable = true;
+    # services.displayManager.autoLogin.user = "pi";
+    # services.displayManager.autoLogin.enable = true;
 
-    # services.xserver.enable = true;
-  
+    # services.wayland.enable = true;  
+    services.xserver.enable = false;
 
 
     services.cage = {
       enable = true;
       # program = "${pkgs.firefox}/bin/firefox";
-      program = "${dashboard.packages.x86_64-linux.default}/bin/dashboard";
+      # program = "${dashboard.packages.x86_64-linux.default}/bin/dashboard";
+      program ="${pkgs.foot}/bin/foot"; 
       user = "pi";  
+      # tty = "tty1";
     };
 
     
 
-    # wait for network and DNS
+    #wait for network and DNS
     systemd.services."cage-tty1".after = [
       # "network-online.target"
       "systemd-resolved.service"
@@ -61,12 +64,30 @@
       pkgs.xterm
       pkgs.cage
       pkgs.libxkbcommon
+
+      #debugging tools
+      pkgs.helix
+      pkgs.git
     ];
 
     environment.sessionVariables = {
-      LD_LIBRARY_PATH = "${pkgs.xorg.libX11}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXi}/lib:${pkgs.libxkbcommon}/lib";
-      WINIT_UNIX_BACKEND = "X11";
+      # LD_LIBRARY_PATH = "${pkgs.xorg.libX11}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXi}/lib:${pkgs.libxkbcommon}/lib";
+      LD_LIBRARY_PATH="${pkgs.wayland}/lib:${pkgs.libxkbcommon}/lib";
+      WINIT_UNIX_BACKEND = "wayland";
     };
+
+
+    #add git repo to build from
+    # environment.etc.dashboard_os = {
+    #   source = builtins.fetchGit{
+    #     url = "https://github.com/MST-Solar-Car-Team/DashboardOs.git";
+    #     # hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    #     ref = "speed-up-boot";
+    #     rev = "0a199eaf8a600fd5af0beadd2645d166ff742ac2";
+    #   };
+    #   mode = "0440";
+    # };
+
 
     boot.loader.grub.enable = false;
     boot.loader.generic-extlinux-compatible.enable = true;
@@ -86,4 +107,8 @@
 
     # boot.kernelPackages = pkgs.linuxPackages_rpi3;
     hardware.enableRedistributableFirmware = true;
+
+    hardware.opengl.enable = true;
+    # hardware.raspberry-pi-3.fkms-3d.enable = true; # Or rpi3 if appropriate
+
 }
