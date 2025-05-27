@@ -1,11 +1,10 @@
   { config, pkgs, lib, dashboard, ... }: {
-    system.stateVersion = "24.05";
+    system.stateVersion = "24.11";
 
     users.users.root.initialPassword = "pi";
 
     #networking
     networking.hostName = "pi";
-    # networking.useDHCP = true;
     networking.wireless.enable = true;
     networking.networkmanager.enable = false;
 
@@ -26,6 +25,14 @@
     services.openssh.enable = true;
     services.openssh.ports = [22];
 
+    # Auto loging
+    services.displayManager.autoLogin.user = "pi";
+    services.displayManager.autoLogin.enable = true;
+
+    # services.wayland.enable = true;  
+    services.xserver.enable = false;
+
+
 
     users.users.pi = {
       isNormalUser = true;
@@ -33,32 +40,21 @@
       extraGroups = [ "wheel" "networkmanager" "video" "input"];
     };
 
-     # Auto loging
-    # services.displayManager.autoLogin.user = "pi";
-    # services.displayManager.autoLogin.enable = true;
-
-    # services.wayland.enable = true;  
-    services.xserver.enable = false;
-
 
     services.cage = {
       enable = true;
-      # program = "${pkgs.firefox}/bin/firefox";
-      # program = "${dashboard.packages.x86_64-linux.default}/bin/dashboard";
-      program ="${pkgs.foot}/bin/foot"; 
-      user = "pi";  
-      # tty = "tty1";
+      program = "${dashboard.packages.x86_64-linux.default}/bin/my_app";
+      user = "pi";
     };
 
-    
-
-    #wait for network and DNS
+    # wait for network and DNS
     systemd.services."cage-tty1".after = [
-      # "network-online.target"
+      "network-online.target"
       "systemd-resolved.service"
     ];
 
 
+        
     environment.systemPackages = [
       dashboard.packages.x86_64-linux.default
       pkgs.xterm
@@ -74,6 +70,7 @@
       # LD_LIBRARY_PATH = "${pkgs.xorg.libX11}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXi}/lib:${pkgs.libxkbcommon}/lib";
       LD_LIBRARY_PATH="${pkgs.wayland}/lib:${pkgs.libxkbcommon}/lib";
       WINIT_UNIX_BACKEND = "wayland";
+      # WINIT_UNIX_BACKEND = "X11";
     };
 
 
@@ -89,8 +86,8 @@
     # };
 
 
-    boot.loader.grub.enable = false;
-    boot.loader.generic-extlinux-compatible.enable = true;
+    # boot.loader.grub.enable = true; #false;
+    # boot.loader.generic-extlinux-compatible.enable = true;
 
     #allows for serial communication
     boot.kernelParams = [
@@ -100,9 +97,9 @@
 
     # boot.loader.timeout = 0;
 
-    boot.initrd.kernelModules = [ "vc4" "bcm2835_dma" "i2c_bcm2835" ];
+    # boot.initrd.kernelModules = [ "vc4" "bcm2835_dma" "i2c_bcm2835" ];
 
-    boot.initrd.availableKernelModules = [ "bcm2835_dma" "sdhci_iproc" "sdhci" "mmc_block" ];
+    # boot.initrd.availableKernelModules = [ "bcm2835_dma" "sdhci_iproc" "sdhci" "mmc_block" ];
 
 
     # boot.kernelPackages = pkgs.linuxPackages_rpi3;

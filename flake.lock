@@ -7,11 +7,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1747543257,
-        "narHash": "sha256-HzIxcUeyuEierIRcXIja8evLYVLfdM9sfzmkWm32ZE0=",
+        "lastModified": 1747609741,
+        "narHash": "sha256-hTV0xFHV+cgDaSCA1T2Ax3pN+oXgC0carhxNKmEbpP4=",
         "owner": "MST-Solar-Car-Team",
         "repo": "Dashboard",
-        "rev": "4d9c64be45fa27daab4bce2802934492ec0c0c04",
+        "rev": "a6ade85bb97294ff4aa4fa59cdf96558cac9bb20",
         "type": "github"
       },
       "original": {
