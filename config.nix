@@ -29,7 +29,6 @@
     services.displayManager.autoLogin.user = "pi";
     services.displayManager.autoLogin.enable = true;
 
-    # services.wayland.enable = true;  
     services.xserver.enable = false;
 
 
@@ -43,7 +42,8 @@
 
     services.cage = {
       enable = true;
-      program = "${dashboard.packages.x86_64-linux.default}/bin/my_app";
+      program = "${dashboard.packages.x86_64-linux.default}/bin/dashboard";
+      # program = "${pkgs.firefox}/bin/firefox";
       user = "pi";
     };
 
@@ -64,11 +64,17 @@
       #debugging tools
       pkgs.helix
       pkgs.git
+
+      #Make sure slint works on the os
+      pkgs.cargo-ui
+
+      pkgs.gnome-terminal
+      pkgs.firefox
     ];
 
     environment.sessionVariables = {
       # LD_LIBRARY_PATH = "${pkgs.xorg.libX11}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXi}/lib:${pkgs.libxkbcommon}/lib";
-      LD_LIBRARY_PATH="${pkgs.wayland}/lib:${pkgs.libxkbcommon}/lib";
+      LD_LIBRARY_PATH="${pkgs.wayland}/lib:${pkgs.libxkbcommon}/lib:/run/opengl-driver/lib";
       WINIT_UNIX_BACKEND = "wayland";
       # WINIT_UNIX_BACKEND = "X11";
     };
