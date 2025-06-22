@@ -36,7 +36,7 @@
     users.users.pi = {
       isNormalUser = true;
       password = "pi";
-      extraGroups = [ "wheel" "networkmanager" "video" "input"];
+      extraGroups = [ "wheel" "networkmanager" "video" "input" "dialout" "tty" ];
     };
 
 
@@ -95,10 +95,15 @@
     # boot.loader.grub.enable = true; #false;
     # boot.loader.generic-extlinux-compatible.enable = true;
 
-    #allows for serial communication
-    boot.kernelParams = [
-      "console=ttyS1,115200n8"
-    ];
+    #allows for serial console communication
+    # boot.kernelParams = [
+    #   "console=ttyS1,115200n8"
+    # ];
+
+    # system.activationScripts.make_usb_work = pkgs.lib.stringAfter [ "users" ]
+    # ''
+    #   chmod 777 /dev/ttyS1
+    # '';
 
 
     # boot.loader.timeout = 0;
