@@ -48,10 +48,11 @@
     };
 
     # wait for network and DNS
-    systemd.services."cage-tty1".after = [
-      "network-online.target"
-      "systemd-resolved.service"
-    ];
+    # was only needed for when this was a web dashboard
+    # systemd.services."cage-tty1".after = [
+      # "network-online.target"
+      # "systemd-resolved.service"
+    # ];
 
 
         
