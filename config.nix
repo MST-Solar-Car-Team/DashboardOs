@@ -32,6 +32,9 @@
     services.xserver.enable = false;
 
 
+    nixpkgs.config.allowUnfree = true;
+    nix.settings.experimental-features = "nix-command flakes";
+
 
     users.users.pi = {
       isNormalUser = true;
@@ -55,6 +58,10 @@
     # ];
 
 
+    #speed things up
+    sdImage.compressImage = false;
+    boot.supportedFilesystems.zfs = lib.mkForce false;
+
         
     environment.systemPackages = [
       dashboard.packages.x86_64-linux.default
@@ -65,10 +72,16 @@
       #debugging tools
       pkgs.helix
       pkgs.git
+      pkgs.gdb
+
+      pkgs.cargo
+      pkgs.rustc
+      pkgs.udev
+      pkgs.pkg-config
+      pkgs.stdenv
 
       #Make sure slint works on the os
       pkgs.cargo-ui
-
       pkgs.gnome-terminal
       pkgs.firefox
     ];
@@ -117,7 +130,8 @@
     # boot.kernelPackages = pkgs.linuxPackages_rpi3;
     hardware.enableRedistributableFirmware = true;
 
-    hardware.opengl.enable = true;
+    # hardware.opengl.enable = true;
+    hardware.graphics.enable = true;
     # hardware.raspberry-pi-3.fkms-3d.enable = true; # Or rpi3 if appropriate
 
 }
