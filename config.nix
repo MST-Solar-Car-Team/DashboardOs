@@ -90,6 +90,7 @@
       # LD_LIBRARY_PATH = "${pkgs.xorg.libX11}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXi}/lib:${pkgs.libxkbcommon}/lib";
       LD_LIBRARY_PATH="${pkgs.wayland}/lib:${pkgs.libxkbcommon}/lib:/run/opengl-driver/lib";
       WINIT_UNIX_BACKEND = "wayland";
+      SLINT_BACKEND="winit-software";
       # WINIT_UNIX_BACKEND = "X11";
     };
 

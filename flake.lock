@@ -7,11 +7,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1750826766,
-        "narHash": "sha256-YWixJt2Ngh/5G1geLAzg5+0q2FmuTTRDQraD7+lKwEY=",
+        "lastModified": 1751005681,
+        "narHash": "sha256-sKo40WAp5O1Sh0y52HHk3nwXuqtf9KjtHXKcuszn3aI=",
         "owner": "MST-Solar-Car-Team",
         "repo": "Dashboard",
-        "rev": "edc15626349128c96e8f6ade24c4e5445370038c",
+        "rev": "3348fec99ecf3fa2b84453d4e22dce693909d7f1",
         "type": "github"
       },
       "original": {
@@ -75,11 +75,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1750622754,
-        "narHash": "sha256-kMhs+YzV4vPGfuTpD3mwzibWUE6jotw5Al2wczI0Pv8=",
+        "lastModified": 1750838302,
+        "narHash": "sha256-aVkL3/yu50oQzi2YuKo0ceiCypVZpZXYd2P2p1FMJM4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c7ab75210cb8cb16ddd8f290755d9558edde7ee1",
+        "rev": "7284e2decc982b81a296ab35aa46e804baaa1cfe",
         "type": "github"
       },
       "original": {
